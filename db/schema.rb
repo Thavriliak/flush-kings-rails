@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_161933) do
+ActiveRecord::Schema.define(version: 2019_01_11_165714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(version: 2019_01_11_161933) do
     t.index ["movie_id"], name: "index_appearances_on_movie_id"
   end
 
+  create_table "brands", force: :cascade do |t|
+    t.string "name"
+    t.string "year_created"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "examples", force: :cascade do |t|
     t.text "text", null: false
     t.bigint "user_id", null: false
@@ -40,10 +47,26 @@ ActiveRecord::Schema.define(version: 2019_01_11_161933) do
     t.index ["user_id"], name: "index_examples_on_user_id"
   end
 
+  create_table "inventories", force: :cascade do |t|
+    t.string "product"
+    t.integer "amount"
+    t.float "price"
+    t.string "size"
+    t.string "color"
+    t.bigint "brand_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_inventories_on_brand_id"
+    t.index ["user_id"], name: "index_inventories_on_user_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "area"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -52,6 +75,22 @@ ActiveRecord::Schema.define(version: 2019_01_11_161933) do
     t.date "year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "restrooms", force: :cascade do |t|
+    t.bigint "location_id"
+    t.bigint "user_id"
+    t.string "name_of_establishment"
+    t.string "cleanliness"
+    t.string "smell"
+    t.integer "number_of_toilets"
+    t.boolean "handicap_accessible"
+    t.boolean "baby_care"
+    t.string "hours"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_restrooms_on_location_id"
+    t.index ["user_id"], name: "index_restrooms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,4 +106,9 @@ ActiveRecord::Schema.define(version: 2019_01_11_161933) do
   add_foreign_key "appearances", "actors"
   add_foreign_key "appearances", "movies"
   add_foreign_key "examples", "users"
+  add_foreign_key "inventories", "brands"
+  add_foreign_key "inventories", "users"
+  add_foreign_key "locations", "users"
+  add_foreign_key "restrooms", "locations"
+  add_foreign_key "restrooms", "users"
 end

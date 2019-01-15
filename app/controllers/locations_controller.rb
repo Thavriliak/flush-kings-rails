@@ -1,5 +1,5 @@
-class LocationsController < ApplicationController
-  before_action :set_location, only: [:show, :update, :destroy]
+class LocationsController < ProtectedController
+  before_action :set_location, only: %i[show update destroy]
 
   # GET /locations
   def index
@@ -10,15 +10,16 @@ class LocationsController < ApplicationController
 
   # GET /locations/1
   def show
-    render json: @location
+    render json: Location.find(params[:id])
   end
 
   # POST /locations
   def create
-    @location = Location.new(location_params)
+    @location = current_user.locations.build(location_params)
 
     if @location.save
-      render json: @location, status: :created, location: @location
+      render json: @location, status: :created
+      # , location: @location
     else
       render json: @location.errors, status: :unprocessable_entity
     end

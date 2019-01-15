@@ -1,4 +1,4 @@
-class RestroomsController < ApplicationController
+class RestroomsController < ProtectedController
   before_action :set_restroom, only: [:show, :update, :destroy]
 
   # GET /restrooms
