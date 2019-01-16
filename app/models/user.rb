@@ -5,5 +5,5 @@ class User < ApplicationRecord
   has_many :locations
   has_many :restrooms
   has_many :restrooms, through: :locations
-  has_many :locations, through: :restrooms
+  has_many :location, through: :restroom
 end

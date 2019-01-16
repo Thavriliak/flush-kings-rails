@@ -1,4 +1,4 @@
-class LocationsController < ProtectedController
+class LocationsController < OpenReadController
   before_action :set_location, only: %i[show update destroy]
 
   # GET /locations
@@ -15,7 +15,7 @@ class LocationsController < ProtectedController
 
   # POST /locations
   def create
-    @location = current_user.locations.build(location_params)
+    @location = Location.build(location_params)
 
     if @location.save
       render json: @location, status: :created

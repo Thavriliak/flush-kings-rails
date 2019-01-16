@@ -3,7 +3,7 @@ class RestroomsController < ProtectedController
 
   # GET /restrooms
   def index
-    @restrooms = Restroom.all
+    @restrooms = current_user.restrooms.all
 
     render json: @restrooms
   end
@@ -15,7 +15,7 @@ class RestroomsController < ProtectedController
 
   # POST /restrooms
   def create
-    @restroom = Restroom.new(restroom_params)
+    @restroom = current_user.restrooms.new(restroom_params)
 
     if @restroom.save
       render json: @restroom, status: :created, location: @restroom
@@ -41,11 +41,11 @@ class RestroomsController < ProtectedController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_restroom
-      @restroom = Restroom.find(params[:id])
+      @restroom = current_user.restrooms.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def restroom_params
-      params.require(:restroom).permit(:location, :name_of_establishment, :cleanliness, :smell, :number_of_toilets, :handicap_accessible, :baby_care, :hours)
+      params.require(:restroom).permit(:location_id, :name_of_establishment, :cleanliness, :smell, :number_of_toilets, :handicap_accessible, :baby_care, :hours, :user_id)
     end
 end

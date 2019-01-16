@@ -1,5 +1,3 @@
 class LocationSerializer < ActiveModel::Serializer
-  attributes :id, :area
-  has_one :user
-  has_many :restrooms
+  attributes :id, :area, :user_id
 end
