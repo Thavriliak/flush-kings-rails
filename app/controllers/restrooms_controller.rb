@@ -15,7 +15,7 @@ class RestroomsController < ProtectedController
 
   # POST /restrooms
   def create
-    @restroom = current_user.restrooms.new(restroom_params)
+    @restroom = current_user.restrooms.create(restroom_params)
 
     if @restroom.save
       render json: @restroom, status: :created, location: @restroom
