@@ -4,6 +4,5 @@ class User < ApplicationRecord
   include Authentication
   has_many :locations
   has_many :restrooms
-  # has_many :restrooms, through: :locations
-  has_many :locations, through: :restrooms
+  has_many :restrooms, through: :reviews
 end
