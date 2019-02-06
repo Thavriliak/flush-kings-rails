@@ -1,4 +1,4 @@
-class ReviewsController < ApplicationController
+class ReviewsController < ProtectedController
   before_action :set_review, only: [:show, :update, :destroy]
 
   # GET /reviews
@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
 
   # POST /reviews
   def create
-    @review = Review.new(review_params)
+    @review = current_user.reviews.build(review_params)
 
     if @review.save
       render json: @review, status: :created, location: @review
@@ -41,7 +41,7 @@ class ReviewsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_review
-      @review = Review.find(params[:id])
+      @review = current_user.review.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
