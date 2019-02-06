@@ -46,6 +46,6 @@ class ReviewsController < ProtectedController
 
     # Only allow a trusted parameter "white list" through.
     def review_params
-      params.require(:review).permit(:user_id, :restroom_id, :cleanliness, :smell)
+      params.require(:review).permit(:restroom_id, :cleanliness, :smell)
     end
 end
