@@ -3,7 +3,7 @@ class RestroomsController < ProtectedController
 
   # GET /restrooms
   def index
-    @restrooms = current_user.restrooms.all
+    @restrooms = Restroom.all
 
     render json: @restrooms
   end
@@ -15,7 +15,17 @@ class RestroomsController < ProtectedController
 
   # POST /restrooms
   def create
-    @restroom = current_user.restrooms.create(restroom_params)
+    binding.pry
+    # does restroom exist? Look at ID
+    
+    # condition 1: restroom doesn't exist
+    @restroom = current_user.restrooms.build(restroom_params)
+    # needs location_id and user_id to create restroom
+
+    # condition 2: restroom does exist
+    # just make a review on the existing restroom
+
+    # next, add cleanliness and smell to review
 
     if @restroom.save
       render json: @restroom, status: :created, location: @restroom
