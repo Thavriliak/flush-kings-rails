@@ -68,6 +68,7 @@ class RestroomsController < ProtectedController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_restroom
+      binding.pry
       @restroom = current_user.restrooms.find(params[:id])
     end
 
