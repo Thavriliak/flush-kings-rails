@@ -1,1 +1,5 @@
 This application is an app where you can find and post about recent restroom experiences in your area. It is fully functional, and allows for the user to be able to not only post about their restroom, but also to comment on others posts. They can also make different locations based off of where they would like to set their post to. I used Rails and a framework for this backend and it worked well. My ERD can be found inside of the public folder of this document. I found that this backend was extremely hard to implement because there were so many relationships between all of the tables and it was hard to keep track of. 
+
+My routes for this project include /locations, /restrooms, /reviews, and then the user. The review route was a join table between user and restrooms. 
+
+I was able to make logic for this application that stated if both the location id and the name of establishment were the same as an existing post, it would make a review to the post instead of making a duplicate restroom.
